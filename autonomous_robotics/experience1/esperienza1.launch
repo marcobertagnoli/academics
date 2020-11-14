@@ -1,0 +1,5 @@
+<launch>
+  <node name="mapping" pkg="esperienza1" type="mapping" output="screen" />
+  <node name="navigation_matteonavigation" pkg="esperienza1" type="navigation" output="screen" />
+  <node name="robot" pkg="esperienza1" type="robot" output="screen" />
+</launch>

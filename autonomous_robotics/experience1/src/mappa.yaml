@@ -1,0 +1,23 @@
+%YAML:1.0
+
+Dimensione:
+ altezza: 5
+ lunghezza: 10
+
+Inizio:
+ x: 2
+ y: 2
+
+Arrivo:
+ x: 8
+ y: 2
+
+Ostacoli:
+ numero_ostacoli:15
+ x: [0, 2, 3, 3, 3, 2, 1, 5, 6, 5, 5, 8, 7, 7, 8]
+ y: [0, 1, 1, 2, 3, 3, 3, 0, 0, 3, 4, 1, 2, 3, 3]
+
+
+DrawMap: 1
+
+TerzoPunto: 0

@@ -1,0 +1,10 @@
+\select@language {italian}
+\select@language {italian}
+\contentsline {section}{\numberline {1}Introduzione}{2}
+\contentsline {section}{\numberline {2}Obiettivi e Procedimento}{2}
+\contentsline {section}{\numberline {3}Implementazione}{3}
+\contentsline {subsection}{\numberline {3.1}\textit {robot\_controller}}{3}
+\contentsline {subsection}{\numberline {3.2}\textit {Detector}}{4}
+\contentsline {subsection}{\numberline {3.3}\textit {move\_to\_object}}{5}
+\contentsline {section}{\numberline {4}Esecuzione}{7}
+\contentsline {section}{\numberline {5}Conclusioni}{8}

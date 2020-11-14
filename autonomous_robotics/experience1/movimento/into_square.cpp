@@ -1,0 +1,87 @@
+#include "ros/ros.h"
+#include "geometry_msgs/Twist.h"
+#include "nxt_msgs/Color.h"
+#include "nav_msgs/Odometry.h"
+#include <math.h>
+
+#include <sstream>
+
+#include <Spostamento.h>
+
+char color = 'g'; //g: va dritto; t:gira di 90°; s:fermo; b:retro; a: allinea
+
+double x, y, orientation;
+double distance = 0;
+double x_old = 0;
+double y_old = 0;
+
+void intensityCallback( const nxt_msgs::Color::ConstPtr& msg )
+	{
+
+		if( msg->r < 0.4 )
+			{
+				color = 'w';
+			} else
+			{
+				color = 'g';
+			}
+	}
+
+void odomCallback( const nav_msgs::Odometry::ConstPtr& msg )
+	{
+		x = msg->pose.pose.position.x;
+		y = msg->pose.pose.position.y;
+
+		distance = distance
+		      + sqrt(
+		            ( x - x_old ) * ( x - x_old )
+		                  + ( y - y_old ) * ( y - y_old ) );
+
+		x_old = x;
+		y_old = y;
+
+		orientation = msg->pose.pose.orientation.z;
+	};
+
+int main( int argc, char **argv )
+	{
+		ros::init( argc, argv, "coll_avoid" );
+		ros::NodeHandle n;
+
+		ros::Publisher vel_pub = n.advertise < geometry_msgs::Twist > ( "cmd_vel", 1 );
+		ros::Subscriber intensity_sub = n.subscribe( "intensity_sensor", 1, intensityCallback );
+		ros::Subscriber odom_sub = n.subscribe( "odom", 1, odomCallback );
+
+		int hz = 10;
+		float periodo = ( float ) 1 / hz;
+		ros::Rate loop_rate( hz ); //  publish rate
+
+		float t = 0.0;
+		Spostamento sposta = new h
+		while( ros::ok() ) //fino a che ros non viene fermato
+			{
+				//Aggiornamento del timer
+				geometry_msgs::Twist vels;
+				geometry_msgs::Vector3 lin, ang; //Velocità angolare e lineare
+
+				lin.x = sposta.getVelocit�();
+				lin.y = 0;
+				lin.z = 0;
+				ang.x = 0;
+				ang.y = 0;
+				ang.z = 0;
+
+				vels.linear = lin;
+				vels.angular = ang;
+				vel_pub.publish( vels );
+
+				ROS_INFO( "...searching..." );
+
+				ros::spinOnce();
+				loop_rate.sleep();
+
+			};
+
+		return 0;
+
+	};

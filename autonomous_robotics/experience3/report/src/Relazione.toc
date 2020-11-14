@@ -1,0 +1,8 @@
+\select@language {italian}
+\select@language {italian}
+\contentsline {section}{\numberline {1}Introduzione}{2}
+\contentsline {section}{\numberline {2}Obiettivi e Procedimento}{2}
+\contentsline {section}{\numberline {3}Simulazioni}{2}
+\contentsline {section}{\numberline {4}Creazione della Mappa}{2}
+\contentsline {section}{\numberline {5}Test in laboratorio}{3}
+\contentsline {section}{\numberline {6}Conclusioni}{4}

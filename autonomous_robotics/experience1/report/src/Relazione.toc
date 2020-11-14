@@ -1,0 +1,19 @@
+\select@language {italian}
+\select@language {italian}
+\contentsline {section}{\numberline {1}Panoramica}{2}
+\contentsline {subsection}{\numberline {1.1}Mappa}{2}
+\contentsline {subsection}{\numberline {1.2}Scenario}{2}
+\contentsline {subsection}{\numberline {1.3}Robot Lego NXT}{3}
+\contentsline {section}{\numberline {2}Realizzazione del Software}{3}
+\contentsline {subsection}{\numberline {2.1}Mappa (angelo)}{4}
+\contentsline {subsection}{\numberline {2.2}Navigazione (angelo)}{4}
+\contentsline {subsection}{\numberline {2.3}Spostamento del robot (matteo)}{4}
+\contentsline {subsubsection}{\numberline {2.3.1}Rotazione}{4}
+\contentsline {subsubsection}{\numberline {2.3.2}Movimento in linea retta}{5}
+\contentsline {subsubsection}{\numberline {2.3.3}Avanzamento di una cella}{5}
+\contentsline {subsubsection}{\numberline {2.3.4}Centramento all'interno di una cella}{5}
+\contentsline {subsubsection}{\numberline {2.3.5}Ricerca dei coni}{5}
+\contentsline {section}{\numberline {3}Test in laboratorio}{6}
+\contentsline {subsection}{\numberline {3.1}Descrizione esperienza}{6}
+\contentsline {subsection}{\numberline {3.2}Scenario con ostacoli mobili}{6}
+\contentsline {section}{\numberline {4}Conclusioni}{7}
