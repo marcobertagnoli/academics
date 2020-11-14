@@ -1,0 +1,44 @@
+#include <opencv2/highgui/highgui.hpp>
+#include <opencv2/imgproc/imgproc.hpp>
+#include <cstdlib>
+#include <iostream>
+
+using namespace cv;
+
+/*
+ * 
+ */
+
+
+
+int main(int argc, char**argv){
+	
+	Mat img=imread("sunset-lake.jpg");
+	Mat img_HSW; //immagine in formato HSW
+	Mat img_sat; //immagine saturata
+	
+	//Conversione da BGR a HSW
+	cvtColor(img, img_HSV, CV_BGR2HSV);
+	
+	//Saturazione
+	for(int i=0; i<img_HSW.rows, ++i){
+	
+		for(int j=0; j<img_HSW.cols, ++j){
+		
+			img_HSV.at<Vec3b>(i,j)[1]=255;
+			img_HSV.at<Vec3b>(i,j)[2]=255;		
+		}
+	
+	}
+	
+	cvtColor(img_HSV, img_sat, CV_HSV2BGR);	
+	
+	
+	
+	crtColor(img)
+
+
+
+
+    return 0
+}

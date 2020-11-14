@@ -1,0 +1,21 @@
+lab1
+Utilizzando le librerie OpenCV, sviluppate un software in grado di:
+	leggere un'immagine da file
+	applicare un filtro gaussiano
+	calcolare gli edge e la loro densità
+	calcolare i corner di Harris
+
+OpenCV Lab 2, 3/11/2015
+1 - With the help of the OpenCV library, develop a software that:
+	loads a color image (image 3) and converts it to the HSV color space;
+	saturates that image and saves it to file.
+2 - Develop a software that:
+	loads an image (image 4) and segments the orange ball, based on a set of static thresholds defined in the RGB color space.
+	Acquires the mouse click, then considers a 9x9 neighborhood around the clicked point, and calculates the median of the RGB color inside it. Once this is done, segment the orange ball by choosing the points whose L2 distance from the median is smaller than a static threshold.
+	Do the same, but in the HSV color space, considering the H-channel only.
+
+OpenCV Lab 3, 10/11/2015
+With the help of the OpenCV library, develop a software that:
+
+	performs camera calibration.
+
