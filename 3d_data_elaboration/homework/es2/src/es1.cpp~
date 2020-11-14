@@ -1,0 +1,106 @@
+
+
+#include <pcl/point_types.h>
+#include <pcl/features/normal_3d.h>	    // for computing normals
+#include <pcl/io/pcd_io.h> 		    // for reading the point cloud
+#include <pcl/visualization/pcl_visualizer.h>
+#include <pcl/features/normal_3d_omp.h>
+#include <pcl/filters/filter.h>		// for removing NaN from the point cloud
+
+int
+  main (int argc, char** argv)
+{
+	// Variables declaration:
+	pcl::PointCloud<pcl::PointXYZRGB>::Ptr cloud (new pcl::PointCloud<pcl::PointXYZRGB>);
+
+	// Load point cloud from .pcd file:
+	if (pcl::io::loadPCDFile<pcl::PointXYZRGB> ("../dataset/minimouse1_segmented.pcd", *cloud) == -1) //* load the file
+	//if (pcl::io::loadPCDFile<pcl::PointXYZRGB> ("../dataset/minimouse1.pcd", *cloud) == -1) //* load the file
+	{
+		PCL_ERROR ("Couldn't read the pcd file \n");
+		return (-1);
+	}
+	std::cout << "Loaded "
+			<< cloud->width * cloud->height
+			<< " data points from the pcd file. "
+			<< std::endl;
+
+	// Create the normal estimation class, and pass the input dataset to it
+	//  pcl::NormalEstimation<pcl::PointXYZRGB, pcl::Normal> ne;
+	pcl::NormalEstimationOMP<pcl::PointXYZRGB, pcl::Normal> ne1;
+	pcl::NormalEstimationOMP<pcl::PointXYZRGB, pcl::Normal> ne2;
+	ne1.setInputCloud (cloud);
+	ne2.setInputCloud (cloud);
+
+	// Create an empty kdtree representation, and pass it to the normal estimation object.
+	// Its content will be filled inside the object, based on the given input dataset (as no other search surface is given).
+	pcl::search::KdTree<pcl::PointXYZRGB>::Ptr tree (new pcl::search::KdTree<pcl::PointXYZRGB> ());
+	ne1.setSearchMethod (tree);
+	ne2.setSearchMethod (tree);
+
+	// Output datasets
+	pcl::PointCloud<pcl::Normal>::Ptr cloud_normals1 (new pcl::PointCloud<pcl::Normal>);
+	pcl::PointCloud<pcl::Normal>::Ptr cloud_normals2 (new pcl::PointCloud<pcl::Normal>);
+
+	// Use all neighbors in a sphere of radius 3cm and 0.2cm
+	ne1.setRadiusSearch (0.03);
+	ne2.setRadiusSearch (0.002);
+
+	// Compute the normals:
+	std::cout << "Computing normals...please wait...";
+	ne1.setNumberOfThreads(4); 	// set number of threads when using OpenMP 
+	ne1.compute (*cloud_normals1);
+	ne2.setNumberOfThreads(4); 	// set number of threads when using OpenMP 
+	ne2.compute (*cloud_normals2);
+	std::cout << "done." << std::endl;
+
+	// cloud_normals->points.size () should have the same size as the input cloud->points.size ()*
+
+	//Visualize normals
+	int normalsVisualizationStep = 100; // to visualize a normal every normalsVisualizationStep
+	float normalsScale= 0.02;
+	
+	/*	
+	pcl::visualization::PCLVisualizer viewer("PCL Viewer");
+	viewer.setBackgroundColor (0.0, 0.0, 0.5);
+	viewer.addCoordinateSystem (0.1);
+	viewer.initCameraParameters ();
+	pcl::visualization::PointCloudColorHandlerRGBField<pcl::PointXYZRGB> rgb(cloud);
+	viewer.addPointCloud<pcl::PointXYZRGB> (cloud, rgb, "input_cloud");
+	viewer.addPointCloudNormals<pcl::PointXYZRGB, pcl::Normal>(cloud, cloud_normals, normalsVisualizationStep, normalsScale, "normals");
+
+	std::cout << "Visualization...: "<< std::endl;
+	while (!viewer.wasStopped ())
+	{
+		viewer.spin ();
+	}
+	*/
+	
+	//Open PCL visualizer
+	pcl::visualization::PCLVisualizer viewer("PCL Viewer");
+	
+	// Draw original point cloud to the left:
+	int v1(0);
+	viewer.createViewPort (0.0, 0.0, 0.5, 1.0, v1);
+	viewer.setBackgroundColor (150, 0, 0, v1);
+	viewer.addCoordinateSystem (0.1, v1); //, "cloud"
+	pcl::visualization::PointCloudColorHandlerRGBField<pcl::PointXYZRGB> rgb(cloud);
+	viewer.addPointCloud<pcl::PointXYZRGB> (cloud, rgb, "input_cloud1",v1);
+	viewer.addPointCloudNormals<pcl::PointXYZRGB, pcl::Normal>(cloud, cloud_normals1, normalsVisualizationStep, normalsScale, "normals1",v1);
+
+	// Draw filtered point cloud to the right:
+	int v2(0);
+	viewer.createViewPort (0.5, 0.0, 1.0, 1.0, v2);
+	viewer.setBackgroundColor (150, 0, 0, v2);
+	viewer.addCoordinateSystem (0.1, v2); //, "cloud"
+	viewer.addPointCloud<pcl::PointXYZRGB> (cloud, rgb, "input_cloud2",v2);
+	viewer.addPointCloudNormals<pcl::PointXYZRGB, pcl::Normal>(cloud, cloud_normals2, normalsVisualizationStep, normalsScale, "normals2",v2);
+	// Loop for visualization (so that the visualizers are continuously updated):
+	std::cout << "Visualization...: "<< std::endl;
+	while (!viewer.wasStopped ())
+	{
+		viewer.spin ();
+	}
+	
+	return 0;
+}

@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<opencv_storage>
+
+	<PC_number>
+		6
+	</PC_number>
+
+	<inputs_nao>
+		../data/nao/1.pcd
+		../data/nao/2.pcd
+		../data/nao/3.pcd
+		../data/nao/4.pcd
+		../data/nao/5.pcd
+		../data/nao/6.pcd
+	</inputs_nao>
+
+</opencv_storage>
